@@ -1,0 +1,35 @@
+<!doctype html>
+
+<h1>TJ IOI Print Service</h1>
+
+<h2>Submit a job</h2>
+<form method="POST">
+    <label>
+        Username:
+        <input type="text" name="username" />
+    </label>
+    <label>
+        Password:
+        <input type="password" name="password" />
+    </label>
+    <label>
+        File:
+        <input type="file" name="file" />
+    </label>
+    <input type="submit" />
+</form>
+
+<h2>Restrictions</h2>
+<ul>
+    <li>File must be less than 16 MB</li>
+    <li>File must have the extension txt, py, c, cpp</li>
+    <li>File must be less than 15 pages long</li>
+</ul>
+
+<h2>Printer status</h2>
+<ul>
+{% for name, p in printers.items() %}
+    <li>{{ name }}, {{ p['printer-state'] }}, {{ p['printer-info'] }}, {{ p['printer-location'] }}</li>
+{% endfor %}
+</ul>
+
