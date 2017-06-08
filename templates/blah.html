@@ -1,0 +1,25 @@
+<!doctype.html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>TJ IOI Print Service</title>
+    <link href="https://user.tjhsst.edu/2017kgeng/static/main.css" rel="stylesheet" />
+</head>
+
+<body>
+<h1>TJ IOI Print Service</h1>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class="flashes">
+{% for message in messages %}
+    <li>{{ message }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+<a href=".">Back to home</a>
+
+</body>
+</html>

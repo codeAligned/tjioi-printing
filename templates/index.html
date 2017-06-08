@@ -1,35 +1,71 @@
 <!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>TJ IOI Print Service</title>
+    <link href="https://user.tjhsst.edu/2017kgeng/static/main.css" rel="stylesheet" />
+</head>
 
+<body>
 <h1>TJ IOI Print Service</h1>
 
-<h2>Submit a job</h2>
-<form method="POST">
+<h2>Submit a file to print</h2>
+<form method="POST" enctype="multipart/form-data" action="do_print">
     <label>
-        Username:
-        <input type="text" name="username" />
+        Team:<br>
+        <select name="team">
+            <option value="" selected></option>
+            <option value="team0">Team 0</option>
+            <option value="team1">Team 1</option>
+            <option value="team2">Team 2</option>
+            <option value="team3">Team 3</option>
+            <option value="team4">Team 4</option>
+            <option value="team5">Team 5</option>
+            <option value="team6">Team 6</option>
+            <option value="team7">Team 7</option>
+            <option value="team8">Team 8</option>
+            <option value="team9">Team 9</option>
+            <option value="teamA">Team A</option>
+            <option value="teamB">Team B</option>
+            <option value="teamC">Team C</option>
+            <option value="teamD">Team D</option>
+        </select>
     </label>
+    <br>
     <label>
-        Password:
-        <input type="password" name="password" />
+        Printer:<br>
+        <select name="printer">
+            <option value=""></option>
+            {% for name, p in printers %}
+            <option value="{{ name }}">{{ p['printer-location'] }} ({{ name }})</option>
+            {% endfor %}
+        </select>
     </label>
+    <br>
     <label>
-        File:
+        File:<br>
         <input type="file" name="file" />
     </label>
+    <br /><br />
+    <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
     <input type="submit" />
 </form>
 
 <h2>Restrictions</h2>
 <ul>
-    <li>File must be less than 16 MB</li>
-    <li>File must have the extension txt, py, c, cpp</li>
-    <li>File must be less than 15 pages long</li>
+    <li>File must be less than 1 MB</li>
+    <li>File must be plaintext</li>
+    <li>File must have one of the following extensions: txt, py, c, cpp, java</li>
+    <li>File will be truncated to first 5 pages</li>
 </ul>
 
 <h2>Printer status</h2>
 <ul>
-{% for name, p in printers.items() %}
-    <li>{{ name }}, {{ p['printer-state'] }}, {{ p['printer-info'] }}, {{ p['printer-location'] }}</li>
-{% endfor %}
+    {% for name, p in printers %}
+    <li>{{ name }}, {{ p['printer-state-message'] }}, {{ p['printer-info'] }}, {{ p['printer-location'] }}</li>
+    {% endfor %}
 </ul>
+
+</body>
+</html>
 
